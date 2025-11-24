@@ -4,7 +4,7 @@ import {
   type BrandedProduct,
 } from "src/composables/product";
 
-import { computed, reactive, watch } from "vue";
+import { reactive, watch } from "vue";
 import useCartInteraction from "./composables/useCartInteraction";
 import useConfigurableProduct from "./composables/useConfigurableProduct";
 

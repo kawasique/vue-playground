@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/vue-query";
-import { computed, toValue, type MaybeRefOrGetter } from "vue";
+import { toValue, type MaybeRefOrGetter } from "vue";
 
 export type Brand = {
   id: number;
