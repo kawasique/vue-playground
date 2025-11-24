@@ -65,15 +65,39 @@ export type BrandedSimpleProduct = BrandReplacer<SimpleProduct>;
 export type BrandedConfigurableProduct = BrandReplacer<ConfigurableProduct>;
 export type BrandedProduct = BrandedSimpleProduct | BrandedConfigurableProduct;
 
+function transformImageSrc(product: Product) {
+  const apiBase = API_BASE.endsWith("/") ? API_BASE.slice(0, -1) : API_BASE;
+  const result = {
+    ...product,
+    image: apiBase + product.image,
+  };
+
+  if (product.type === "configurable") {
+    return {
+      ...result,
+      variants: product.variants.map((variant) => ({
+        ...variant,
+        product: {
+          ...variant.product,
+          image: apiBase + variant.product.image,
+        },
+      })),
+    };
+  }
+
+  return result;
+}
+
 export async function getProducts(brand: number | null = null) {
   const response = await fetch(API_BASE + "level3/products.json");
   if (!response.ok)
     throw new Error(`Ошибка загрузки продуктов ${response.status}`);
 
-  const data = (await response.json()) as Product[];
+  let data = (await response.json()) as Product[];
+  data = data.map(transformImageSrc);
 
-  if (brand === null) return data;
-  return data.filter((p) => p.brand === brand);
+  if (brand) return data.filter((p) => p.brand === brand);
+  return data;
 }
 
 export function useProducts(brand: MaybeRefOrGetter<number | null> = null) {
