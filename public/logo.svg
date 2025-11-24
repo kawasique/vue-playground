@@ -1,0 +1,9 @@
+<svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="200" fill="black" />
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+        font-family="'Comic Sans MS', 'Comic Sans', cursive"
+        font-size="84"
+        fill="white">
+    MockMart™
+  </text>
+</svg>

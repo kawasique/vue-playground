@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Каталог товаров</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Comic Sans MS", Comic Sans, cursive;
+      }
+
+      body {
+        background-color: #fff;
+        color: #000;
+      }
+
+      .browser-window {
+        max-width: 1200px;
+        margin: 20px auto;
+        border: 10px solid #000;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .browser-header {
+        background-color: #ccc;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .browser-buttons {
+        display: flex;
+        gap: 5px;
+      }
+
+      .browser-button {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        border: 1px solid #000;
+      }
+
+      .browser-url {
+        flex-grow: 1;
+        background-color: #fff;
+        border: 1px solid #000;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .browser-search {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 2px solid #000;
+      }
+
+      .logo {
+        width: 100px;
+        height: 60px;
+        background-color: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border: 1px solid #000;
+      }
+
+      .cart {
+        width: 40px;
+        height: 40px;
+        background-color: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #000;
+        position: relative;
+      }
+
+      .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: #000;
+        color: #fff;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .main-content {
+        display: flex;
+        padding: 20px;
+        gap: 20px;
+      }
+
+      .sidebar {
+        width: 200px;
+        background-color: #fff;
+        padding: 20px;
+        border-right: 2px solid #000;
+      }
+
+      .sidebar h3 {
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+
+      .brand-list {
+        list-style: none;
+      }
+
+      .brand-list li {
+        padding: 8px 0;
+        cursor: pointer;
+      }
+
+      .brand-list li:hover {
+        text-decoration: underline;
+      }
+
+      .brand-list li.active {
+        font-weight: bold;
+        border-bottom: 2px solid #000;
+      }
+
+      .catalog {
+        flex-grow: 1;
+      }
+
+      .catalog h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .product-card {
+        background-color: #fff;
+        border: 1px solid #000;
+        padding: 15px;
+        text-align: center;
+      }
+
+      .product-image {
+        width: 100%;
+        height: 200px;
+        background-color: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        position: relative;
+        border: 1px solid #000;
+      }
+
+      .product-image::before {
+        content: "Image of Featured Product";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 12px;
+        color: #000;
+      }
+
+      .product-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 16px;
+      }
+
+      .product-brand {
+        color: #000;
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+
+      .product-price {
+        font-weight: bold;
+        color: #000;
+        font-size: 18px;
+      }
+
+      .footer {
+        background-color: #ccc;
+        padding: 10px 20px;
+        text-align: center;
+        border-top: 2px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="browser-window">
+      <div class="browser-header">
+        <div class="browser-buttons">
+          <div class="browser-button">←</div>
+          <div class="browser-button">→</div>
+          <div class="browser-button">×</div>
+          <div class="browser-button">↑</div>
+        </div>
+        <div class="browser-url">
+          <span>https://</span>
+        </div>
+        <div class="browser-search">🔍</div>
+      </div>
+
+      <div class="header">
+        <div class="logo">logo</div>
+        <div class="cart">
+          🛒
+          <div class="cart-badge">9</div>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="sidebar">
+          <h3>All Brands</h3>
+          <ul class="brand-list">
+            <li>Brand 1</li>
+            <li>Brand 2</li>
+            <li>Brand 3</li>
+            <li>Brand 4</li>
+            <li class="active">Brand 5</li>
+            <li>Brand 6</li>
+            <li>Brand 7</li>
+            <li>Brand 8</li>
+            <li>Brand 9</li>
+          </ul>
+        </div>
+
+        <div class="catalog">
+          <h2>Catalog</h2>
+          <div class="products-grid">
+            <!-- Row 1 -->
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 1</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 2</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 3</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 4</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 5</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 6</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 7</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 8</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 9</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 10</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 11</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+            <div class="product-card">
+              <div class="product-image"></div>
+              <div class="product-name">Product 12</div>
+              <div class="product-brand">Brand</div>
+              <div class="product-price">$88.00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">© 2025 Каталог товаров</div>
+    </div>
+  </body>
+</html>

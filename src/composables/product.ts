@@ -1,0 +1,91 @@
+import { useQuery } from "@tanstack/vue-query";
+import { toValue, type MaybeRefOrGetter } from "vue";
+
+export type OptionKey = "color" | "size";
+
+export type SimpleProduct = {
+  type: "simple";
+  id: number;
+  sku: string;
+  title: string;
+  brand: number;
+  image: string;
+  regular_price: {
+    currency: string;
+    value: number;
+  };
+};
+
+type ColorOption = {
+  attribute_id: number;
+  attribute_code: "color";
+  label: string;
+  values: {
+    label: string;
+    value_index: number;
+    value: string;
+  }[];
+};
+
+type SizeOption = {
+  attribute_id: number;
+  attribute_code: "size";
+  label: string;
+  values: {
+    label: string;
+    value_index: number;
+    value: number;
+  }[];
+};
+
+export type ConfigurableProduct = Omit<SimpleProduct, "type"> & {
+  type: "configurable";
+  configurable_options: (ColorOption | SizeOption)[];
+  variants: {
+    attributes: {
+      code: OptionKey;
+      value_index: number;
+    }[];
+    product: {
+      id: number;
+      sku: string;
+      image: string;
+    };
+  }[];
+};
+
+export type Product = SimpleProduct | ConfigurableProduct;
+
+type BrandReplacer<T> = Omit<T, "brand"> & {
+  brand: string;
+};
+
+export type BrandedSimpleProduct = BrandReplacer<SimpleProduct>;
+export type BrandedConfigurableProduct = BrandReplacer<ConfigurableProduct>;
+export type BrandedProduct = BrandedSimpleProduct | BrandedConfigurableProduct;
+
+export async function getProducts(brand: number | null = null) {
+  const response = await fetch("/level3/products.json");
+  if (!response.ok)
+    throw new Error(`Ошибка загрузки продуктов ${response.status}`);
+
+  const data = (await response.json()) as Product[];
+
+  if (brand === null) return data;
+  return data.filter((p) => p.brand === brand);
+}
+
+export function useProducts(brand: MaybeRefOrGetter<number | null> = null) {
+  return useQuery({
+    // аналог естественного ключа в виде api/products?brand=...
+    queryKey: ["/products", { brand }],
+    queryFn: () => getProducts(toValue(brand)),
+  });
+}
+
+export function formatProductPrice(product: Product | BrandedProduct) {
+  const price = product.regular_price;
+  if (price.currency === "USD") return `$${price.value}`;
+  if (price.currency === "RUB") return `${price.value}₽`;
+  return `${price.currency} ${price.value}`;
+}

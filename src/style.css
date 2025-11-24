@@ -1,0 +1,28 @@
+:root {
+  /* прости меня, отче, ибо я согрешил */
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #000;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: block;
+  min-height: 100vh;
+  padding: 0 20px;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+#app {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
