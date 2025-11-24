@@ -4,7 +4,7 @@ import { resolve } from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.VITE_BASE_URL || "/",
+  base: process.env.BASE_URL || "/",
   plugins: [vue()],
   resolve: {
     alias: {

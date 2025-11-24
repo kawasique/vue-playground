@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/vue-query";
 import { toValue, type MaybeRefOrGetter } from "vue";
+import { API_BASE } from "./settings";
 
 export type OptionKey = "color" | "size";
 
@@ -65,7 +66,7 @@ export type BrandedConfigurableProduct = BrandReplacer<ConfigurableProduct>;
 export type BrandedProduct = BrandedSimpleProduct | BrandedConfigurableProduct;
 
 export async function getProducts(brand: number | null = null) {
-  const response = await fetch("/level3/products.json");
+  const response = await fetch(API_BASE + "level3/products.json");
   if (!response.ok)
     throw new Error(`Ошибка загрузки продуктов ${response.status}`);
 

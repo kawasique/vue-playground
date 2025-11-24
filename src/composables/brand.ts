@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/vue-query";
 import { toValue, type MaybeRefOrGetter } from "vue";
+import { API_BASE } from "./settings";
 
 export type Brand = {
   id: number;
@@ -9,7 +10,7 @@ export type Brand = {
 };
 
 export async function getBrands() {
-  const response = await fetch("/level1/brands.json");
+  const response = await fetch(API_BASE + "level1/brands.json");
   if (!response.ok)
     throw new Error(`Ошибка загрузки брендов ${response.status}`);
 
