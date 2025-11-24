@@ -23,7 +23,7 @@ export default function useCartInteraction(
   const isAdded = computed(() => {
     if (!canAdd.value) return false;
     if (product.type === "simple") return cart.hasItem(product.id);
-    if (selectedVariant.value) cart.hasItem(selectedVariant.value.id);
+    if (selectedVariant.value) return cart.hasItem(selectedVariant.value.id);
     return false;
   });
 
